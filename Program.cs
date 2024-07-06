@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "Recipe app", Version = "v1" }));
 
-string? connString = builder.Configuration.GetConnectionString("MySqlLocal");
+var connString = builder.Configuration.GetConnectionString("MySqlLocal");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySQL(connString!));
 
 builder.Services.AddScoped<RecipeService>();
@@ -19,21 +19,22 @@ builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 app.UseExceptionHandler();
-app.UseSwagger();
-app.UseSwaggerUI();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 var routes = app.MapGroup("")
     .WithParameterValidation()
     .WithOpenApi()
     .WithTags("Recipes");
 
-routes.MapGet("/", async (RecipeService service) =>
-{
-    return await service.GetRecipes();
-})
+routes.MapGet("/", async (RecipeService service) => await service.GetRecipes())
 .WithSummary("List recipes");
 
-routes.MapGet("/{id}", async (int id, RecipeService service) =>
+routes.MapGet("/{id:int}", async (int id, RecipeService service) =>
 {
     var recipe = await service.GetRecipeDetail(id);
     return recipe is not null
@@ -53,7 +54,7 @@ routes.MapPost("/", async (CreateRecipeCommand cmd, RecipeService service) =>
 .WithSummary("Create recipe")
 .Produces(StatusCodes.Status201Created);
 
-routes.MapDelete("/{id}", async (int id, RecipeService service) =>
+routes.MapDelete("/{id:int}", async (int id, RecipeService service) =>
 {
     await service.DeleteRecipe(id);
     return Results.NoContent();
@@ -61,15 +62,12 @@ routes.MapDelete("/{id}", async (int id, RecipeService service) =>
 .WithSummary("Delete recipe")
 .Produces(statusCode:201);
 
-routes.MapPut("/{id}", async (int id, UpdateRecipeCommand input, RecipeService service) =>
+routes.MapPut("/{id:int}", async (int id, UpdateRecipeCommand input, RecipeService service) =>
 {
-    if (await service.IsAvailableForUpdate(id))
-    {
-        await service.UpdateRecipe(input);
-        return Results.NoContent();
-    }
+    if (!await service.IsAvailableForUpdate(id)) return Results.Problem(statusCode: 404);
+    await service.UpdateRecipe(input);
+    return Results.NoContent();
 
-    return Results.Problem(statusCode: 404);
 })
 .WithSummary("Update recipe")
 .ProducesProblem(404)
