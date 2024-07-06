@@ -1,7 +1,6 @@
-using Chapter12EFCore.ContextModels;
-using Chapter12EFCore.Services;
+using RecipeBook.ContextModels;
 
-namespace Chapter12EFCore.Commands;
+namespace RecipeBook.Commands;
 
 public class CreateRecipeCommand : EditRecipeBase
 {

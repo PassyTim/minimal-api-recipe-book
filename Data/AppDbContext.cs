@@ -1,7 +1,7 @@
-using Chapter12EFCore.ContextModels;
 using Microsoft.EntityFrameworkCore;
+using RecipeBook.ContextModels;
 
-namespace Chapter12EFCore.Data;
+namespace RecipeBook.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options)
     : DbContext(options)

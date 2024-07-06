@@ -1,10 +1,9 @@
-using Chapter12EFCore.Commands;
-using Chapter12EFCore.ContextModels;
-using Chapter12EFCore.Data;
-using Chapter12EFCore.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using RecipeBook.Commands;
+using RecipeBook.Data;
+using RecipeBook.ViewModels;
 
-namespace Chapter12EFCore.Services;
+namespace RecipeBook.Services;
 
 public class RecipeService
 {

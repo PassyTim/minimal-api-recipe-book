@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Chapter12EFCore.ContextModels;
+using RecipeBook.ContextModels;
 
-namespace Chapter12EFCore.Commands;
+namespace RecipeBook.Commands;
 
 public class CreateIngredientCommand
 {

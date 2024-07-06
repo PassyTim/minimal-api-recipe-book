@@ -1,9 +1,9 @@
-using Chapter12EFCore.Commands;
-using Chapter12EFCore.Data;
-using Chapter12EFCore.Services;
-using Chapter12EFCore.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RecipeBook.Commands;
+using RecipeBook.Data;
+using RecipeBook.Services;
+using RecipeBook.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 

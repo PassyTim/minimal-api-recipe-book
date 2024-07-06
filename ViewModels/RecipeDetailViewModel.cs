@@ -1,4 +1,4 @@
-namespace Chapter12EFCore.ViewModels;
+namespace RecipeBook.ViewModels;
 
 public class RecipeDetailViewModel
 {

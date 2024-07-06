@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Chapter12EFCore.Commands;
+namespace RecipeBook.Commands;
 
 public class EditRecipeBase
 {

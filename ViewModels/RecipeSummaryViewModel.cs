@@ -1,6 +1,6 @@
-using Chapter12EFCore.ContextModels;
+using RecipeBook.ContextModels;
 
-namespace Chapter12EFCore.ViewModels;
+namespace RecipeBook.ViewModels;
 
 public class RecipeSummaryViewModel
 {

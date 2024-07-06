@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Chapter12EFCore.ContextModels;
+namespace RecipeBook.ContextModels;
 
 public class Recipe
 {
